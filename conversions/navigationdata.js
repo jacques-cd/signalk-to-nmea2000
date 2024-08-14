@@ -26,7 +26,8 @@ module.exports = (app, plugin) => {
         }
       }]
     }]
-  }, {
+  },
+  {
     pgn: 129284,
     title: 'Navigation Data (129284)',
     optionKey: 'navigationdata',

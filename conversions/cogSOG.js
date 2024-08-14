@@ -2,9 +2,9 @@ const _ = require('lodash')
 
 module.exports = (app, plugin) => {
   var lastUpdate = null
-  
+
   return {
-    title: 'COG & SOG (129026)',
+    title: 'COG & SOG, Rapid Update (129026)',
     optionKey: 'COG_SOGv2',
     keys: ["navigation.courseOverGroundTrue", "navigation.speedOverGround"],
     callback: (course, speed) => {
@@ -13,16 +13,16 @@ module.exports = (app, plugin) => {
           {
             pgn: 129026,
             'COG Reference': 0,
-            COG: course,
+            COG: course || 0,
             SOG: speed
           }
         ]
-      } catch ( err ) {
+      } catch (err) {
         console.error(err)
       }
     },
     tests: [{
-      input: [ 2.1, 9 ],
+      input: [2.1, 9],
       expected: [{
         "prio": 2,
         "pgn": 129026,

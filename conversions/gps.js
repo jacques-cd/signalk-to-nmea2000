@@ -1,7 +1,7 @@
 module.exports = (app, plugin) => {
   return [{
     pgn: 129025,
-    title: 'Position (129025)',
+    title: 'Position, Rapid Update (129025)',
     optionKey: 'position',
     keys: ["navigation.position"],
     callback: (position) => {
@@ -15,8 +15,8 @@ module.exports = (app, plugin) => {
     },
     tests: [{
       input: [{
-        longitude: -75.487264,
-        latitude: 32.0631296
+        latitude: 32.0631296,
+        longitude: -75.487264
       }],
       expected: [{
         "prio": 2,
@@ -31,7 +31,7 @@ module.exports = (app, plugin) => {
   },
   {
     pgn: 129029,
-    title: 'GNSS position data (129029)',
+    title: 'GNSS Position Data (129029)',
     optionKey: 'gnssPositionData',
     keys: [
       "navigation.datetime",
@@ -95,107 +95,8 @@ module.exports = (app, plugin) => {
         }
       }]
     }]
-  }, {
-    pgn: 129539,
-    title: 'GNSS DOPs (129539)',
-    optionKey: 'gnssDops',
-    keys: ["navigation.gnss.horizontalDilution", "navigation.gnss.verticalDilution", "navigation.gnss.timeDilution"],
-    callback: (hdop, vdop, tdop) => {
-      return [
-        {
-          pgn: 129539,
-          "Desired Mode": "3D",
-          "Actual Mode": "Auto",
-          "HDOP": hdop,
-          "VDOP": vdop,
-          "TDOP": tdop
-        }
-      ]
-    },
-    tests: [{
-      input: [0.77, 1.38, 0.89],
-      expected: [{
-        "prio": 2,
-        "pgn": 129539,
-        "dst": 255,
-        "fields": {
-          "Desired Mode": "3D",
-          "Actual Mode": "Auto",
-          "HDOP": 0.77,
-          "VDOP": 1.38,
-          "TDOP": 0.89
-        }
-      }]
-    }]
-  }, {
-    pgn: 129540,
-    title: 'GNSS Sats in View (129539)',
-    optionKey: 'satsInView',
-    keys: ["navigation.gnss.satellitesInView"],
-    callback: (sats) => {
-      return [
-        {
-          pgn: 129540,
-          "Sats in View": sats.count,
-          "Actual Mode": "Auto",
-          list: sats.satellites.reduce((acc, satInfo) => {
-            if (Object.keys(satInfo).length >= 4) {
-              acc.push({
-                PRN: satInfo.id,
-                Elevation: satInfo.elevation,
-                Azimuth: satInfo.azimuth,
-                SNR: satInfo.SNR,
-                Status: "Used"
-              })
-            }
-            return acc
-          }, [])
-        }
-      ]
-    },
-    tests: [{
-      input: [{
-        "count": 2,
-        "satellites": [
-          {
-            "id": 15,
-            "elevation": 1.0,
-            "azimuth": 2.0,
-            "SNR": 30.00
-          },
-          {
-            "id": 88,
-            "elevation": 1.0,
-            "azimuth": 2.0,
-            "SNR": 30.00
-          }]
-      }],
-      expected: [{
-        "prio": 2,
-        "pgn": 129540,
-        "dst": 255,
-        "fields": {
-          "Sats in View": 2,
-          "list": [
-            {
-              "PRN": 15,
-              "Elevation": 1.0,
-              "Azimuth": 2.0,
-              "SNR": 30.00,
-              "Status": "Used"
-            },
-            {
-              "PRN": 88,
-              "Elevation": 1.0,
-              "Azimuth": 2.0,
-              "SNR": 30.00,
-              "Status": "Used"
-            }
-          ]
-        }
-      }]
-    }]
-  }]
+  }
+  ]
 }
 
 var typeMap = {
