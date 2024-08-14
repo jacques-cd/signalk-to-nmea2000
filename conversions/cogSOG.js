@@ -13,7 +13,7 @@ module.exports = (app, plugin) => {
           {
             pgn: 129026,
             'COG Reference': 0,
-            COG: course || 0,
+            COG: course || 0, // This is a problem, because we really need to be receiving the COG, not assuming north.
             SOG: speed
           }
         ]
